@@ -1,26 +1,28 @@
 import React from 'react';
-import logo from './logo.svg';
+import HeaderLogo from './components/HeaderLogo.js';
+import Footer from './components/Footer.js';
+import StartBrowsing from './components/StartBrowsing.js';
+import AccountSection from './components/AccountSection.js';
 import './App.css';
 
-function App() {
-  return (
+class App extends React.Component{
+  render(){
+    return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <body>
+        <header className="App-header">
+          <HeaderLogo/>
+          <h3>
+            Find your perfect trip, designed by insiders who know and love their cities.
+          </h3>
+        </header>
+        <StartBrowsing/>
+        <AccountSection/>
+        <Footer/>
+      </body>
     </div>
-  );
+    );
+  }
 }
 
 export default App;
