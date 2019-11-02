@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import '../App.css';
 
 class AccountSection extends React.Component{
@@ -6,19 +7,12 @@ class AccountSection extends React.Component{
         return (
             <div>
                 <p>Want to build your own MYtinerary?</p>
-                <a
-                    className="App-link"
-                    href="#"
-                >
-                    Log in
-                </a>
-                <br></br>
-                <a
-                    className="App-link"
-                    href="#"
-                >
-                    Create Account
-                </a>
+
+                <ul>
+                    <li><Link className="App-link" to="./Login">Log In </Link></li>
+                    <li><Link className="App-link" to="./SignUp">Create Account</Link></li>
+                </ul>
+
             </div>
         );
     }
