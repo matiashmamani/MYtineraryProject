@@ -3,9 +3,12 @@
 // BASE SETUP
 // ==============================================
 
-var express = require('express');
-var app     = express();
-var port    =   process.env.PORT || 5000;
+var express  = require('express');
+var mongoose = require('mongoose');
+var app      = express();
+var port     = process.env.PORT || 5000;    
+
+mongoose.connect('mongodb+srv://matias123:matias123@mytinerarycluster-ymxpj.mongodb.net/test?retryWrites=true&w=majority', {useNewUrlParser: true});
 
 // ROUTES
 // ==============================================
