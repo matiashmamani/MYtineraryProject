@@ -4,9 +4,10 @@ const mongoose   = require('mongoose');
 
 const City = require('./City');
 
-const app   = express();
-const port  = process.env.PORT || 5000;    
-const dbUri = 'mongodb+srv://matias123:matias123@mytinerarycluster-ymxpj.mongodb.net/myDatabase?retryWrites=true&w=majority';
+const app    = express();
+const port   = process.env.PORT || 5000;    
+const dbUri  = 'mongodb+srv://matias123:matias123@mytinerarycluster-ymxpj.mongodb.net/myDatabase?retryWrites=true&w=majority';
+const router = express.Router();
 
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
@@ -20,7 +21,9 @@ mongoose.connect(dbUri, {useNewUrlParser: true, useUnifiedTopology: true})
         throw err;
 });
 
-app.get('/cities/all', (req, res) => {
+app.use('/cities', router);
+
+router.get('/all', (req, res) => {
 
     City.find({}, (err, cities) => {
 
@@ -32,7 +35,7 @@ app.get('/cities/all', (req, res) => {
 
 });
 
-app.get('/cities/:cityId', (req, res) => {
+router.get('/:cityId', (req, res) => {
 
     let cityId = req.params.cityId;
 
@@ -45,7 +48,7 @@ app.get('/cities/:cityId', (req, res) => {
  
 });
 
-app.post('/city', (req, res) => {
+router.post('/new', (req, res) => {
     let city = new City()
     city.name = req.body.name;
     city.country = req.body.country;
@@ -56,16 +59,3 @@ app.post('/city', (req, res) => {
         res.status(200).send({city: cityStored});
     });
 });
-
-/*
-var router = express.Router();
-
-router.get('/', function(req, res) {
-    res.send('im the home page!');  
-});
-
-router.get('/test', function(req, res) {
-    res.send('HELLO WORLD'); 
-});
-
-app.use('/', router); */
