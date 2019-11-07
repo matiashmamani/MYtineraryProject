@@ -1,10 +1,9 @@
 const mongoose = require('mongoose');
+const Schema   = mongoose.Schema;
 
-let CitiesSchema = mongoose.Schema({
+const CitySchema = Schema({
     name: String,
     country: String
-  });
+});
 
-  let Citie = mongoose.model('Citie', CitiesSchema, collection);
-
-module.exports = mongoose.model("cities", CitiesSchema);
+module.exports = mongoose.model('City', CitySchema);

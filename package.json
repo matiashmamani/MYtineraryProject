@@ -6,13 +6,14 @@
   "scripts": {
     "start": "nodemon server.js",
     "server": "nodemon server.js",
-    "client": "cd client/ && npm run start",  
-    "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\"",  
+    "client": "cd client/ && npm run start",
+    "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Matias Mamani",
   "license": "MIT",
   "dependencies": {
+    "body-parser": "^1.19.0",
     "concurrently": "^5.0.0",
     "express": "^4.17.1",
     "mongoose": "^5.7.7"

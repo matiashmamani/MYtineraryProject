@@ -1,42 +1,71 @@
-// server.js
+const express    = require('express');
+const bodyParser = require('body-parser');
+const mongoose   = require('mongoose');
 
-// BASE SETUP
-// ==============================================
+const City = require('./City');
 
-var express  = require('express');
-var mongoose = require('mongoose');
-var app      = express();
-var port     = process.env.PORT || 5000;    
+const app   = express();
+const port  = process.env.PORT || 5000;    
+const dbUri = 'mongodb+srv://matias123:matias123@mytinerarycluster-ymxpj.mongodb.net/myDatabase?retryWrites=true&w=majority';
 
-mongoose.connect('mongodb+srv://matias123:matias123@mytinerarycluster-ymxpj.mongodb.net/test?retryWrites=true&w=majority', {useNewUrlParser: true});
+app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.json());
 
-// ROUTES
-// ==============================================
-
-// sample route with a route the way we're used to seeing it
-app.get('/sample', function(req, res) {
-    res.send('this is a sample!');  
+mongoose.connect(dbUri, {useNewUrlParser: true, useUnifiedTopology: true})
+    .then(res => {
+        console.log('DB Connection successfully!');
+        app.listen(port);
+        console.log('Magic happens on port ' + port);  
+    }).catch(err => {
+        throw err;
 });
 
-// we'll create our routes here
+app.get('/cities/all', (req, res) => {
 
-// get an instance of router
+    City.find({}, (err, cities) => {
+
+        if (err) return res.status(500).send({message: `Error: ${err}`});
+        if (!cities) return res.status(404).send({message: 'Cities do not exist'});
+        
+        res.status(200).send({ cities });
+    });
+
+});
+
+app.get('/cities/:cityId', (req, res) => {
+
+    let cityId = req.params.cityId;
+
+    City.findById(cityId, (err, city) => {
+        if (err) return res.status(500).send({message: `Error: ${err}`});
+        if (!city) return res.status(404).send({message: `Not found: cityId ${cityId} does not exist`});
+        
+        res.status(200).send({ city });
+    })
+ 
+});
+
+app.post('/city', (req, res) => {
+    let city = new City()
+    city.name = req.body.name;
+    city.country = req.body.country;
+
+    city.save((err, cityStored) => {
+        if (err) res.status(500).send({message: `Error when saving city: ${err}`});
+        
+        res.status(200).send({city: cityStored});
+    });
+});
+
+/*
 var router = express.Router();
 
-// home page route (http://localhost:8080)
 router.get('/', function(req, res) {
     res.send('im the home page!');  
 });
 
-// about page route (http://localhost:8080/about)
 router.get('/test', function(req, res) {
     res.send('HELLO WORLD'); 
 });
 
-// apply the routes to our application
-app.use('/', router);
-
-// START THE SERVER
-// ==============================================
-app.listen(port);
-console.log('Magic happens on port ' + port);
+app.use('/', router); */
