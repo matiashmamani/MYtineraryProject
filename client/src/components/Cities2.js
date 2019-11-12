@@ -31,15 +31,15 @@ class Cities extends React.Component {
   fetchCities() {
 
     this.setState({
-        isFetching: true,
-        cities: []
+        cities: [],
+        isFetching: true
     })
 
     fetch(CITY_SERVICE_URL)
       .then(response => response.json())
       .then(result => this.setState({
-          isFetching: false,  
-          cities: result.cities
+          cities: result.cities, 
+          isFetching: false
         }))
       .catch(err => console.log(err));
   }
