@@ -1,11 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { getCities } from '../actions/cityAction';
+import { cityAction } from '../actions/cityAction';
 
 class Cities extends React.Component {
     
   render() {
     
+    console.log(this.props.cities);
     const listItems = this.props.cities.map((city) => <li key={city._id}>{city.name}</li>);
     
     return (
@@ -28,15 +29,16 @@ const mapStateToProps = (state) => {
   }  
 }
 
-/* const mapDispatchToProps = (dispatch) => {
-  return {
-    fetchCities() {
-      fetch(CITY_SERVICE_URL)
-        .then(response => response.json())
-        .then(result => dispatch({type: 'GET_CITIES', cities: result.cities}))
-        .catch(err => console.log(err));
+const mapDispatchToProps = (dispatch) => {
+  return {  
+    getCities: () => {
+      fetch('http://localhost:5000/city/all')
+          .then(response => response.json())
+          .then(result => dispatch(cityAction(result.cities)))
+          .catch(err => console.log(err));
     }
   }
-} */
+  
+}
 
-export default connect(mapStateToProps, {getCities})(Cities);
+export default connect(mapStateToProps, mapDispatchToProps)(Cities);
