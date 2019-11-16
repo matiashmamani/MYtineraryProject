@@ -1,8 +1,16 @@
-export const cityAction = (cities) => {
+export const getCities = (payload) => {
 
     return {
-        type: 'GET_CITIES', 
-        cities: cities
+        type: 'GET_CITIES',
+        payload
+    }
+
+}
+
+export const fetchLoading = () => {
+
+    return {
+        type: 'FETCH_LOADING',
     }
 
 }
