@@ -1,5 +1,7 @@
+import { GET_CITIES, CITIES_LOADING } from '../actions/types';
+
 const initialState = {
-    isFetching: false,
+    loading: false,
     cities: []
 }
 
@@ -7,15 +9,15 @@ const cityReducer = (state = initialState, action) => {
 
     switch(action.type){
 
-        case 'FETCH_LOADING':
+        case CITIES_LOADING:
             return {
                 ...state,
-                isFetching: true
+                loading: true
             }
 
-        case 'GET_CITIES':
+        case GET_CITIES:
             return {
-                isFetching: false, 
+                loading: false, 
                 cities: action.payload
             };
 

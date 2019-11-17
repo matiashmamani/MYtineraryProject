@@ -1,41 +1,74 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { getCities, fetchLoading } from '../actions/cityAction';
+import { getCities, setCitiesLoading } from '../actions/cityAction';
+import PropTypes from 'prop-types';
 
 class Cities extends React.Component {
 
-  render() {
+  //TBD
+  constructor(){
+    super();
+    this.state = {
+      search: ''
+    }
+  }
 
-    const listItems = this.props.cities.cities.map((city) => <li key={city._id}>{city.name}</li>);
+  //TBD
+  handleChange(event){
+    this.setState({
+      search: event.target.value
+    });
+  }
+
+  render() {
+    //TBD
+    let filteredCities = this.props.city.cities.filter(
+      (city) => {
+        return city.name.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1;
+      }
+    );
+
+    const listItems = filteredCities.map((city) => <li key={city._id}>{city.name}</li>);
 
     return (
       <div>
-        <h1>Cities</h1>
-        <p>{this.props.cities.isFetching ? 'Loading cities...' : ''}</p>
+        <input 
+          type='text'
+          placeholder='Search a City...'
+          value={this.state.search} 
+          onChange={this.handleChange.bind(this)}
+        />
+
+        <p>{this.props.city.loading ? 'Loading cities...' : ''}</p>
         <ul>{listItems}</ul>
       </div>
     );
   }
 
   componentDidMount() {
-    this.props.fetchLoading();
+    this.props.setCitiesLoading();
     this.props.getCities();
   }
 
 }
 
+Cities.propTypes = {
+  city: PropTypes.object.isRequired,
+  setCitiesLoading: PropTypes.func.isRequired,
+  getCities: PropTypes.func.isRequired
+}
+
 const mapStateToProps = (state) => {
   return {
-    isFetching: state.isFetching,
-    cities: state.cities
+    city: state.city
   }  
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
     
-    fetchLoading: () => { 
-      dispatch(fetchLoading());
+    setCitiesLoading: () => { 
+      dispatch(setCitiesLoading());
     },
 
     getCities: () => {
