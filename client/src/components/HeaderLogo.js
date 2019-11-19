@@ -4,7 +4,14 @@ import '../App.css';
 
 class HeaderLogo extends React.Component{
     render(){
-        return (<img src={logo} className='App-logo' alt='logo'/>);
+        return (
+            <div>
+                <img src={logo} className='App-logo' alt='logo'/>
+                <p>
+                Find your perfect trip, designed by <br/> insiders who know and love their cities.
+                </p>
+            </div>           
+        );
     }
 }
 

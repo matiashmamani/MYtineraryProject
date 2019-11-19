@@ -3,7 +3,8 @@
 }
 
 .App-logo {
-  height: 40vmin;
+  height: 150px;
+  width: 375px;
 }
 
 .App-header {
@@ -19,4 +20,13 @@
 
 .App-link {
   color: #09d3ac;
+}
+
+/* .App-circle {
+  height: 40vmin;
+} */
+
+.App-circle {
+  height: 120px;
+  width: 120px;
 }

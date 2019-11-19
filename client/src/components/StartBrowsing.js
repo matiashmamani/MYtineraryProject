@@ -9,7 +9,7 @@ class StartBrowsing extends React.Component{
             <div>
                 <p>Start Browsing</p>
                 <Link to="./Cities">
-                    <img src={circledRight} className='App-logo' alt='logo'/>
+                    <img src={circledRight} className='App-circle' alt='logo'/>
                 </Link>
             </div>
         );

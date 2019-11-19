@@ -1,10 +1,15 @@
 import React from 'react';
-import icon from '../img/homeIcon.png';
-import '../App.css';
+import { Link } from 'react-router-dom';
+import homeIcon from '../img/homeIcon.png';
+import '../css/Footer.css';
 
 class Footer extends React.Component{
     render(){
-        return (<img src={icon} className='App-logo' alt='logo'/>);
+        return (
+            <Link to="./">
+                <img src={homeIcon} className='Footer-home-icon' alt='home icon'/>
+            </Link>
+        );
     }
 }
 
