@@ -4,11 +4,11 @@ function getCity(req, res){
 
     let cityId = req.params.cityId;
 
-    City.findById(cityId, (err, city) => {
+    City.findById(cityId, (err, cities) => {
         if (err) return res.status(500).send({message: `Error: ${err}`});
-        if (!city) return res.status(404).send({message: `Not found: cityId ${cityId} does not exist`});
+        if (!cities) return res.status(404).send({message: `Not found: cityId ${cityId} does not exist`});
         
-        res.status(200).send({ city });
+        res.status(200).send({ cities });
     });
 }
 

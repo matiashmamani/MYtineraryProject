@@ -8,7 +8,7 @@ class StartBrowsing extends React.Component{
         return (
             <div>
                 <p>Start Browsing</p>
-                <Link to="./Cities">
+                <Link to="./cities">
                     <img src={circledRight} className='App-circle' alt='logo'/>
                 </Link>
             </div>

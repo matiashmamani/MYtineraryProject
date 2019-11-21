@@ -24,11 +24,12 @@ const ItinerarySchema = Schema({
     
     hashtag: {
         type: Array
-    }
+    },
 
-/*     cityId: {
-        type: Schema.mongoose.type.ObjectId
-    } */
+    cityId: {
+        type: Schema.Types.ObjectId,
+        ref: 'City'
+    }
 });
 
 module.exports = mongoose.model('Itinerary', ItinerarySchema);

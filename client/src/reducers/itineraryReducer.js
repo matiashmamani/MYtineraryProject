@@ -1,15 +1,17 @@
+import { GET_ITINERARIES } from '../actions/types';
+
 const initialState = {
-    itinerary: Object,
+    itineraries: [],
 }
 
 const itineraryReducer = (state = initialState, action) => {
 
     switch(action.type){
 
-        case 'GET_ITINERARIES':
+        case GET_ITINERARIES:
             return {
-                ...state, 
-                itinerary: action.payload
+                ...state,
+                itineraries: action.payload
             };
 
         default:

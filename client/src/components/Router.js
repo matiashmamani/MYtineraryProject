@@ -12,10 +12,10 @@ class Router extends React.Component{
       <BrowserRouter>
         <Switch>
             <Route exact path="/" component={Content} />
-            <Route path="/Cities" component={Cities} />
+            <Route path="/cities" component={Cities} />
             <Route path="/SignUp" component={SignUp} />
             <Route path="/Login" component={Login} />
-            <Route path="/Itineraries" component={Itineraries} />
+            <Route path="/itineraries/:id" component={Itineraries} />
         </Switch>
       </BrowserRouter>
     );

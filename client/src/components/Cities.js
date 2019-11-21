@@ -2,7 +2,7 @@ import React from 'react';
 import Footer from './Footer.js';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { getCities, setCitiesLoading, setActiveItinerary } from '../actions/cityAction';
+import { getCities, setCitiesLoading } from '../actions/cityAction';
 import PropTypes from 'prop-types';
 
 class Cities extends React.Component {
@@ -26,13 +26,13 @@ class Cities extends React.Component {
     //TBD
     let filteredCities = this.props.city.cities.filter(
       (city) => {
-        return city.name.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1;
+        return city.name.toLowerCase().startsWith(this.state.search.toLowerCase()) === true;
       }
     );
 
     const listItems = filteredCities.map((city) =>
       <li key={city._id}>
-        <Link to='./Itineraries' onClick={(e)=>this.props.setActiveItinerary(city.name)}>{city.name}</Link>
+        <Link to={`./itineraries/${city._id}`}>{city.name}</Link>
       </li>
     );
 
@@ -82,9 +82,6 @@ const mapDispatchToProps = (dispatch) => {
           .then(response => response.json())
           .then(result => dispatch(getCities(result.cities)))
           .catch(err => console.log(err));
-    },
-    setActiveItinerary: (name) => {
-      dispatch(setActiveItinerary(name));
     }
   }
 }

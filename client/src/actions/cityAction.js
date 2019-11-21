@@ -1,4 +1,4 @@
-import { GET_CITIES, CITIES_LOADING, SET_ACTIVE_ITINERARY } from './types';
+import { GET_CITIES, CITIES_LOADING } from './types';
 
 export const getCities = (payload) => {
 
@@ -13,15 +13,6 @@ export const setCitiesLoading = () => {
 
     return {
         type: CITIES_LOADING,
-    }
-
-}
-
-export const setActiveItinerary = (payload) => {
-
-    return {
-        type: SET_ACTIVE_ITINERARY,
-        payload
     }
 
 }

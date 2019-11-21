@@ -6,34 +6,39 @@ class Itineraries extends React.Component {
 
   render() {
     
-    console.log('iti');
-    console.log(this.props.itinerary.itinerary.itineraries);
+    // console.log('render');
+    // console.log(this.props);
+    // console.log(this.props.itinerary.itineraries);
+
     return (
       <div>
-        <h1>Itinerary: {this.props.city.activeItinerary}</h1>
+        <h1>Itinerary: {}</h1>
       </div>
     );
   }
 
   componentDidMount() {
-    this.props.getItineraries();
+    this.props.getItineraries(this.props.match.params.id);
   }
 
 }
 
 const mapStateToProps = (state) => {
   return {
-    city: state.city,
     itinerary: state.itinerary
   }  
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getItineraries: () => {
-      fetch('http://localhost:5000/itinerary/all')
+    getItineraries: (id) => {
+      fetch(`http://localhost:5000/itinerary/${id}`)
           .then(response => response.json())
-          .then(result => dispatch(getItineraries(result)))
+          .then(result => {
+            console.log('result');
+            console.log(result);
+            dispatch(getItineraries(result.itineraries))
+          })
           .catch(err => console.log(err));
     }
   }

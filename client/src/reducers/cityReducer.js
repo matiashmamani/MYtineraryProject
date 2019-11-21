@@ -1,9 +1,8 @@
-import { GET_CITIES, CITIES_LOADING, SET_ACTIVE_ITINERARY } from '../actions/types';
+import { GET_CITIES, CITIES_LOADING } from '../actions/types';
 
 const initialState = {
     loading: false,
-    cities: [],
-    activeItinerary: null
+    cities: []
 }
 
 const cityReducer = (state = initialState, action) => {
@@ -21,12 +20,6 @@ const cityReducer = (state = initialState, action) => {
                 ...state,
                 loading: false, 
                 cities: action.payload
-            };
-
-        case SET_ACTIVE_ITINERARY:
-            return {
-                ...state,
-                activeItinerary: action.payload
             };
 
         default:
