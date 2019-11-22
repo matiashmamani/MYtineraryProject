@@ -4,12 +4,16 @@ function getCity(req, res){
 
     let cityId = req.params.cityId;
 
-    City.findById(cityId, (err, cities) => {
-        if (err) return res.status(500).send({message: `Error: ${err}`});
-        if (!cities) return res.status(404).send({message: `Not found: cityId ${cityId} does not exist`});
-        
-        res.status(200).send({ cities });
-    });
+    City.find({_id: cityId})
+        .populate('itineraries', {cityId: cityId})
+        .then(cities =>{
+            if (!cities.length) return res.status(404).send({message: `Not found: cityId ${cityId} does not exist`});
+            res.status(200).send({ cities });
+        })
+        .catch(err => {
+            if (err) return res.status(500).send({message: `Error: ${err}`});
+        });
+
 }
 
 function getCities(req, res){

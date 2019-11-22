@@ -4,16 +4,15 @@ function getItinerary(req, res){
 
     let itineraryId = req.params.itineraryId;
 
-    // itinerary.findOne( { cityId: itineraryId }, (err, itineraries) => {
-    //     if (err) return res.status(500).send({message: `Error: ${err}`});
-    //     if (!itineraries) return res.status(404).send({message: `Not found: itineraryId ${itineraryId} does not exist`});
-        
-    //     res.status(200).send({ itineraries });
-    // });
-
-    itinerary.find({}).populate('city').then((itineraries)=>{res.json(itineraries).status(200)});
-
-
+    itinerary.find({cityId: itineraryId})
+        .populate('cityId')
+        .then(itineraries =>{
+            if (!itineraries.length) return res.status(404).send({message: `Not found: itineraryId ${itineraryId} does not exist`});
+            res.status(200).send({ itineraries });
+        })
+        .catch(err => {
+            if (err) return res.status(500).send({message: `Error: ${err}`});
+        });
 }
 
 function getItineraries(req, res){
