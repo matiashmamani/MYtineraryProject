@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import homeIcon from '../img/homeIcon.png';
-import '../css/Footer.css';
+import '../App.css';
 
 class Footer extends React.Component{
     render(){

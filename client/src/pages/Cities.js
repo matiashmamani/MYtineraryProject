@@ -1,14 +1,14 @@
 import React from 'react';
-import Footer from './Footer.js';
+import Footer from '../components/Footer.js';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import { getCities, setCitiesLoading } from '../actions/cityAction';
 import PropTypes from 'prop-types';
 import ListGroup from 'react-bootstrap/ListGroup';
 
 class Cities extends React.Component {
 
-  //TBD
   constructor(){
     super();
     this.state = {
@@ -16,7 +16,6 @@ class Cities extends React.Component {
     }
   }
 
-  //TBD
   handleChange(event){
     this.setState({
       search: event.target.value
@@ -24,7 +23,7 @@ class Cities extends React.Component {
   }
 
   render() {
-    //TBD
+
     let filteredCities = this.props.city.cities.filter(
       (city) => {
         return city.name.toLowerCase().startsWith(this.state.search.toLowerCase()) === true;
@@ -74,17 +73,7 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return {
-    setCitiesLoading: () => { 
-      dispatch(setCitiesLoading());
-    },
-    getCities: () => {
-      fetch('http://localhost:5000/city/all')
-          .then(response => response.json())
-          .then(result => dispatch(getCities(result.cities)))
-          .catch(err => console.log(err));
-    }
-  }
+  return bindActionCreators({getCities, setCitiesLoading}, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Cities);

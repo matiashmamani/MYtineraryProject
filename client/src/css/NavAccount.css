@@ -1,7 +1,16 @@
-.NavAccount-button {
-    justify-content: center;
-    color: white;
-    text-decoration: none;
+.NavAccount-btn-toolbar {
+    width: 60%;
     margin: 0 auto;
-    
-}
+  }
+  
+  .NavAccount-btn-left {
+    float: left;
+    width: 40%;
+    margin: 0 auto;
+  }
+  
+  .NavAccount-btn-right { 
+    float: right;
+    width: 40%;
+    margin: 0 auto;
+  }

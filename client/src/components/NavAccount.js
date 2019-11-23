@@ -10,13 +10,17 @@ class NavAccount extends React.Component{
             <div>
                 <p>Want to build your own MYtinerary?</p>
                 <div>
-                    <ButtonToolbar>
-                        <Button variant="primary" size="sm" block>
-                            <Link to="./Login">Log In </Link>
-                        </Button>
-                        <Button variant="primary" size="sm" block>
-                            <Link to="./SignUp">Create Account</Link>
-                        </Button>
+                    <ButtonToolbar className='NavAccount-btn-toolbar'>
+                        <Link to='./login' className='NavAccount-btn-left'>
+                            <Button variant='primary' size='sm' block>
+                                Log In
+                            </Button>
+                        </Link>
+                        <Link to='./signup' className='NavAccount-btn-right'>
+                            <Button variant='primary' size='sm' block>
+                                Create Account
+                            </Button>
+                        </Link>
                     </ButtonToolbar>
                 </div>
             </div>

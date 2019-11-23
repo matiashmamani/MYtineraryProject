@@ -1,13 +1,14 @@
-const City = require('../model/city');
+const City = require('../models/city');
 
 function getCity(req, res){
 
     let cityId = req.params.cityId;
 
-    City.find({_id: cityId})
-        .populate('itineraries', {cityId: cityId})
+    City.findById(cityId)
         .then(cities =>{
-            if (!cities.length) return res.status(404).send({message: `Not found: cityId ${cityId} does not exist`});
+            if (!cities){ 
+                return res.status(404).send({message: `Not found: cityId ${cityId} does not exist`});
+            }
             res.status(200).send({ cities });
         })
         .catch(err => {
@@ -19,7 +20,7 @@ function getCity(req, res){
 function getCities(req, res){
 
     City.find({}, (err, cities) => {
-
+        
         if (err) return res.status(500).send({message: `Error: ${err}`});
         if (!cities) return res.status(404).send({message: 'Cities do not exist'});
         

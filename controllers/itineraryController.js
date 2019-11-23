@@ -1,13 +1,15 @@
-const itinerary = require('../model/itinerary');
+const Itinerary = require('../models/itinerary');
 
-function getItinerary(req, res){
+function getItinerariesByCity(req, res){
 
-    let itineraryId = req.params.itineraryId;
+    let cityId = req.params.cityId;
 
-    itinerary.find({cityId: itineraryId})
+    Itinerary.find({cityId: cityId})
         .populate('cityId')
-        .then(itineraries =>{
-            if (!itineraries.length) return res.status(404).send({message: `Not found: itineraryId ${itineraryId} does not exist`});
+        .then(itineraries =>{            
+            if (!itineraries.length){
+                return res.status(404).send({message: `Not found: itineraries with cityId ${cityId} do not exist`});
+            }
             res.status(200).send({ itineraries });
         })
         .catch(err => {
@@ -17,7 +19,7 @@ function getItinerary(req, res){
 
 function getItineraries(req, res){
 
-    itinerary.find({}, (err, itineraries) => {
+    Itinerary.find({}, (err, itineraries) => {
 
         if (err) return res.status(500).send({message: `Error: ${err}`});
         if (!itineraries) return res.status(404).send({message: 'itineraries do not exist'});
@@ -27,6 +29,6 @@ function getItineraries(req, res){
 }
 
 module.exports = {
-    getItinerary,
+    getItinerariesByCity,
     getItineraries
 }
