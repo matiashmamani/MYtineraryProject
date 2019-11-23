@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { getCities, setCitiesLoading } from '../actions/cityAction';
 import PropTypes from 'prop-types';
+import ListGroup from 'react-bootstrap/ListGroup';
 
 class Cities extends React.Component {
 
@@ -31,9 +32,9 @@ class Cities extends React.Component {
     );
 
     const listItems = filteredCities.map((city) =>
-      <li key={city._id}>
+      <ListGroup.Item key={city._id}>
         <Link to={`./itineraries/${city._id}`}>{city.name}</Link>
-      </li>
+      </ListGroup.Item>
     );
 
     return (
@@ -47,7 +48,7 @@ class Cities extends React.Component {
         />
 
         <p>{this.props.city.loading ? 'Loading cities...' : ''}</p>
-        <ul>{listItems}</ul>
+        <ListGroup>{listItems}</ListGroup>
         <Footer/>
       </div>
     );
