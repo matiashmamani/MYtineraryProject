@@ -1,4 +1,5 @@
 const City = require('../models/city');
+const fs   = require ('fs');
 
 function getCity(req, res){
 
@@ -41,8 +42,17 @@ function saveCity(req, res){
     });
 }
 
+function getImageCity(req, res){
+    fs.readFile(`../MYtineraryProject/img/cities/${req.params.cityId}.png`, (err,data)=>{
+        if(err) return res.send().status(404);
+        res.write(data);
+        return res.end();
+    });
+}
+
 module.exports = {
     getCity,
     getCities,
-    saveCity
+    saveCity,
+    getImageCity
 }

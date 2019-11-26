@@ -10,20 +10,22 @@ class Itineraries extends React.Component {
   render() {
 
     if(!this.props.itinerary.itineraries.length) return (<h1>Loading...</h1>);
-   
+
+    let cityId = this.props.match.params.cityId;
+    
     let itineraries = this.props.itinerary.itineraries;
     let cityName = itineraries[0].cityId.name;
 
     let listItineraries = itineraries.map((itinerary) => {
-      let listHashtag = itinerary.hashtag.map((hashtag)=>
-        <p>{hashtag}</p>
-      );
+      // let listHashtag = itinerary.hashtag.map((hashtag)=>
+      //   <p>{hashtag}</p>
+      // );
       
       return(
         <ListGroup.Item key={itinerary._id}>
           <h3>{itinerary.title}</h3>
           <p>Likes: {itinerary.rating} | {itinerary.duration} Hour(s) | ${itinerary.price}</p>
-          {listHashtag}
+          {/* {listHashtag} */}
         </ListGroup.Item>
       )
     });
@@ -31,6 +33,7 @@ class Itineraries extends React.Component {
     return (
       <div>
         <h1>{cityName}</h1>
+        <img src={`http://localhost:5000/cities/img/${cityId}`} alt={`${cityName}`}></img>
         <p>Available MYtineraries</p>
         <ListGroup>{listItineraries}</ListGroup>
       </div>

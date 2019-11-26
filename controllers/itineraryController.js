@@ -1,4 +1,5 @@
 const Itinerary = require('../models/itinerary');
+const fs        = require ('fs');
 
 function getItinerariesByCity(req, res){
 
@@ -28,7 +29,16 @@ function getItineraries(req, res){
     });
 }
 
+function getImageProfile(req, res){
+    fs.readFile(`../MYtineraryProject/img/profiles/${req.params.profilePic}.png`, (err,data)=>{
+        if(err) return res.send().status(404);
+        res.write(data);
+        return res.end();
+    });
+}
+
 module.exports = {
     getItinerariesByCity,
-    getItineraries
+    getItineraries,
+    getImageProfile
 }
