@@ -30,7 +30,7 @@ function getItineraries(req, res){
 }
 
 function getImageProfile(req, res){
-    fs.readFile(`../MYtineraryProject/img/profiles/${req.params.profilePic}.png`, (err,data)=>{
+    fs.readFile(`../MYtineraryProject/img/profiles/${req.params.profilePic}`, (err,data)=>{
         if(err) return res.send().status(404);
         res.write(data);
         return res.end();

@@ -1,8 +1,15 @@
 import React from 'react';
+import NewAccountForm from '../components/NewAccountForm';
+import Footer from '../components/Footer';
 
 class SignUp extends React.Component {
   render() {
-    return <h1>Sign Up</h1>;
+    return (
+      <div>
+        <NewAccountForm/>
+        <Footer/>
+      </div>  
+    );
   }
 }
 export default SignUp;

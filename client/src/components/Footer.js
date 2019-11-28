@@ -6,7 +6,7 @@ import '../App.css';
 class Footer extends React.Component{
     render(){
         return (
-            <Link to="./">
+            <Link to="/">
                 <img src={homeIcon} className='Footer-home-icon' alt='home icon'/>
             </Link>
         );

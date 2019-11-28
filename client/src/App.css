@@ -39,3 +39,19 @@
   height: 50px;
   width: 50px;
 }
+
+/**********************************************/
+
+.Itineraries-city-img {
+  position: relative;
+  text-align: center;
+  color: white;
+}
+
+.Itineraries-city-name {
+  background-color: black;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}

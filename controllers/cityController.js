@@ -43,7 +43,7 @@ function saveCity(req, res){
 }
 
 function getImageCity(req, res){
-    fs.readFile(`../MYtineraryProject/img/cities/${req.params.cityId}.png`, (err,data)=>{
+    fs.readFile(`../MYtineraryProject/img/cities/${req.params.cityId}`, (err,data)=>{
         if(err) return res.send().status(404);
         res.write(data);
         return res.end();
