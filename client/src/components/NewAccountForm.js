@@ -29,7 +29,7 @@ class NewAccountForm extends React.Component {
 
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleImageChange = this.handleImageChange.bind(this);
-        this.handleForm = this.handleForm.bind(this);
+        this.handleForm        = this.handleForm.bind(this);
     }
   
     handleInputChange(event) {
@@ -196,10 +196,10 @@ const mapStateToProps = (state) => {
     return {
       //city: state.city
     }  
-  }
+}
   
-  const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch) => {
     return bindActionCreators({createNewUser}, dispatch);
-  }
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(NewAccountForm);

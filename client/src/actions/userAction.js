@@ -25,3 +25,25 @@ export const createNewUser = (userData) => {
             .catch(err => console.log(err));
     }
 }
+
+export const loginUser = (userData) => {
+    return (dispatch) => {
+
+        fetch('http://localhost:5000/users/login',{
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    userData: userData //user y pass
+                })
+            })
+            .then(response => response.json())
+            .then(user => dispatch({
+                type: USER_CREATED,
+                payload: user
+            }))
+            .catch(err => console.log(err));
+    }
+}
