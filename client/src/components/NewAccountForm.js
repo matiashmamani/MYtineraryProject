@@ -3,24 +3,33 @@ import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
+import Image from 'react-bootstrap/Image';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { createNewUser } from '../actions/userAction';
+import profilePicEmpty from '../img/profilePicEmpty.png';
 
 class NewAccountForm extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {
-          terms: false,
-          username:"",
-          password:"",
-          email:"",
-          firstName:"",
-          lastName:"",
-          isButtonDisabled: true
-
+            imageFile: [],
+            imageURL: profilePicEmpty,        
+            username: "",
+            password: "",
+            email: "",
+            firstName: "",
+            lastName: "",
+            country: "",
+            terms: false,
+            disabledButton: true
         };
 
         this.handleInputChange = this.handleInputChange.bind(this);
+        this.handleImageChange = this.handleImageChange.bind(this);
+        this.handleForm = this.handleForm.bind(this);
     }
   
     handleInputChange(event) {
@@ -30,50 +39,65 @@ class NewAccountForm extends React.Component {
 
         this.setState({
             [name]: value
-        });
-    
-        console.log('log')
-        console.log(this.state.username)
-        console.log(this.state.username)
+        }, () => { this.validateButton() });
 
-        if(this.state.terms && this.state.username && this.state.password &&
-            this.state.email && this.state.firstName && this.state.lastName){
-
-            this.setState({
-                isButtonDisabled: false
-            });
-        }
-
-        
     }
 
+    validateButton(){
 
-    handleForm(e){
-        // if(
-        //     !this.state.terms ||
-        //     this.state.username ==="" ||
-        //     this.state.password ==="" ||
-        //     this.state.email ==="" ||
-        //     this.state.firstName ==="" ||
-        //     this.state.lastName ==="" 
-        // ){
-        //     e.preventDefault()
-        // }
-        // e.preventDefault();
+        if(this.state.terms && this.state.username &&
+            this.state.password && this.state.email &&
+            this.state.firstName && this.state.lastName &&
+            this.state.country){
+ 
+             this.setState({disabledButton: false});
+        }else{
+             this.setState({disabledButton: true});           
+        }
+
+    }
+
+    handleForm(event){
         
-        // fetch('somewhere/over/rainbow').then((res)=>{
-        //     return res.json();
-        // }).then((data)=>{
-        //     console.log(data)
-        // })
+        event.preventDefault();
+        this.props.createNewUser(this.state);
+    }
+
+    handleImageChange = event => {
+
+        let reader = new FileReader();
+        let file = event.target.files[0];
+
+        reader.onloadend = () => {
+
+            this.setState({
+                imageFile: file,
+                imageURL: reader.result
+            })
+        }
+
+        if(file) reader.readAsDataURL(file);
     }
 
     render() {
+
         return (
             <div>
-                <h1>Create Account</h1>
-                <br></br>
-                <Form>
+                <h3 className="mb-3">Create Account</h3>
+                <Form className="w-100 text-center" onSubmit={(e)=>{this.handleForm(e)}}>
+                    
+                    <Form.Group as={Row} controlId="avatarImg" className="inlineForm text-center">
+                        <Col xs={4} className="mx-auto text-center">
+                            <Image src={this.state.imageURL} roundedCircle fluid className="mb-3 userImg d-block"/>
+                            <input 
+                                id= "avatarImgInput"
+                                name = "avatarImage"
+                                type="file"
+                                className="itinText text-center mb-3 d-block"
+                                onChange={this.handleImageChange}/>  
+                        </Col>
+                    </Form.Group> 
+                    
                     <Form.Group as={Row} controlId="username" className="inlineForm">
                         <Form.Label column xs={3} className="ml-3"><span className="itinText font-weight-bold">Username:</span></Form.Label>
                         <Col xs={3}>
@@ -132,16 +156,16 @@ class NewAccountForm extends React.Component {
                     
                     <Form.Group as={Row} controlId="country" className="inlineForm">
                         <Form.Label column xs={3} className="ml-3"><span className="itinText font-weight-bold">Country:</span></Form.Label>
-                        <Col xs={3}>
-                            <Form.Control name="country" as="select">
-                                <option>Choose...</option>
-                                <option>England</option>
-                                <option>France</option>
-                                <option>Germany</option>
-                                <option>Holland</option>
-                                <option>Ireland</option>
-                                <option>Spain</option>
-                                <option>USA</option>
+                        <Col xs={4}>
+                            <Form.Control name="country" as="select" value={this.state.country} onChange={this.handleInputChange}>
+                                <option value="">Choose...</option>
+                                <option value="England">England</option>
+                                <option value="France">France</option>
+                                <option value="Germany">Germany</option>
+                                <option value="Holland">Holland</option>
+                                <option value="Ireland">Ireland</option>
+                                <option value="Spain">Spain</option>
+                                <option value="United States">United States</option>
                             </Form.Control>
                         </Col>
                     </Form.Group>
@@ -154,11 +178,11 @@ class NewAccountForm extends React.Component {
                             checked={this.state.terms}
                             onChange={this.handleInputChange} />
                         <Form.Label column xs={10} className="ml-3 text-left">
-                            <span className="itinText">I agree to MYtinerary's <Link to='./'>Terms & Conditions</Link></span>
+                            <span className="itinText">I agree to MYtinerary's <Link to='#'>Terms & Conditions</Link></span>
                         </Form.Label>
                     </Form.Group>  
 
-                    <Button variant="primary" type="submit" name="submitBtn" disabled={this.state.isButtonDisabled}>
+                    <Button variant="primary" type="submit" name="submitBtn" disabled={this.state.disabledButton}>
                         OK
                     </Button>
 
@@ -167,4 +191,15 @@ class NewAccountForm extends React.Component {
         );
     }
 }
-export default NewAccountForm;
+
+const mapStateToProps = (state) => {
+    return {
+      //city: state.city
+    }  
+  }
+  
+  const mapDispatchToProps = (dispatch) => {
+    return bindActionCreators({createNewUser}, dispatch);
+  }
+
+export default connect(mapStateToProps, mapDispatchToProps)(NewAccountForm);
